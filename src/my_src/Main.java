@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -28,28 +29,88 @@ public class Main {
 			    Handle_main eval = new Handle_main();
 			    root.accept(eval);
 			    
-			    boolean success = (new File("facts")).mkdirs();
+				
+			    boolean success = (new File("generated-facts")).mkdirs();
 				if (!success) {
 					System.out.print("Directory allready exist\n");
 				}
+				
+				String path = "generated-facts/" ;
 			    
+				
+				File f = new File(args[i]);
+				System.out.println(f.getName());
+				String name = f.getName();
+				
+				int len = name.length() - 4;
+				String input = new String(name);
+				name = input.substring(0,len);
+				
+				success = (new File(path+name)).mkdirs();
+				if (!success) {
+					System.out.print("Directory allready exist\n");
+				}
+				
+				path += name;
+				
 			    
 			    Print_array_list obj = new Print_array_list();
-			    obj.print_array_list(eval.instructionArray, "instruction");
-			    obj.print_array_list(eval.varUseArray, "varUse");
+			    obj.print_array_list(eval.instructionArray, "instruction",path);
+			    obj.print_array_list(eval.varUseArray, "varUse",path);
 			    
-			    obj.print_array_list(eval.nextArray, "next");
-			    obj.print_array_list(eval.varDefArray, "varDef");
-			    obj.print_array_list(eval.varMoveArray, "varMove");
-			    obj.print_array_list(eval.constMoveArray, "constMove");
+			    obj.print_array_list(eval.nextArray, "next",path);
+			    obj.print_array_list(eval.varDefArray, "varDef",path);
+			    obj.print_array_list(eval.varMoveArray, "varMove",path);
+			    obj.print_array_list(eval.constMoveArray, "constMove",path);
 			    
 			    Set<String> hs = new LinkedHashSet<>();
 			    hs.addAll(eval.variablesArray);
 			    eval.variablesArray.clear();
 			    eval.variablesArray.addAll(hs);
-			    obj.print_array_list(eval.variablesArray, "var");
+			    obj.print_array_list(eval.variablesArray, "var",path);
 			    
 			    System.out.println("^^^File : "+args[i]+"   Success ^^^^^^^^^^");
+			    
+			    ///creating makefile
+			    
+			    String filename= "Makefile";
+			    FileWriter fw = new FileWriter(filename,true); //the true will append the new data
+			    fw.write("run-"+name+":\n\t$(JVM) -cp $(CLASSPATH) iris.Main $(current_dir) /generated-facts/"+name+" /analysis-logic /queries\n");//appends the string to the file
+			    fw.close();
+			    
+			     
+			    java.lang.Runtime rt = java.lang.Runtime.getRuntime();
+		        // Start a new process: UNIX command ls
+		        java.lang.Process p = rt.exec("make");
+		        // You can or maybe should wait for the process to complete
+		        p.waitFor();
+		        //System.out.println("Process exited with code = " + rt.exitValue());
+		        // Get process' output: its InputStream
+		        java.io.InputStream is = p.getInputStream();
+		        java.io.BufferedReader reader = new java.io.BufferedReader(new InputStreamReader(is));
+		        // And print each line
+		        String s = null;
+		        while ((s = reader.readLine()) != null) {
+		            System.out.println(s);
+		        }
+		        is.close();
+		        
+		        rt = java.lang.Runtime.getRuntime();
+		        // Start a new process: UNIX command ls
+		        p = rt.exec("make run-"+name);
+		        // You can or maybe should wait for the process to complete
+		        p.waitFor();
+		        //System.out.println("Process exited with code = " + rt.exitValue());
+		        // Get process' output: its InputStream
+		        is = p.getInputStream();
+		        reader = new java.io.BufferedReader(new InputStreamReader(is));
+		        // And print each line
+		        s = null;
+		        while ((s = reader.readLine()) != null) {
+		            System.out.println(s);
+		        }
+		        is.close();
+			    
 	        }
 	        catch(ParseException ex){
 	        	System.out.print("^^^File : "+args[i]+"   ");

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Print_array_list
 {
-	public void print_array_list(ArrayList<String> array,String name) throws Exception
+	public void print_array_list(ArrayList<String> array,String name,String path) throws Exception
 	{
 		// Get size and display.
 		int count = array.size();
@@ -20,7 +20,7 @@ public class Print_array_list
 		}
 		
 		
-		File output = new File("facts/"+name+".iris");
+		File output = new File(path+"/"+name+".iris");
 		if( !output.exists() )
 			output.createNewFile();
 		FileWriter out = new FileWriter(output.getAbsoluteFile());
