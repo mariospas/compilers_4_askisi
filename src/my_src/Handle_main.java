@@ -46,7 +46,8 @@ public class Handle_main extends DepthFirstVisitor
 	String from = new String();
 	
 	LinkedHashMap<Integer, String> cjump_jump = new LinkedHashMap<Integer,String>();
-	
+	LinkedHashMap<Integer, String> jump_labels_up = new LinkedHashMap<Integer,String>();
+	int l_count = 0;
 	
 	public int AssignInstr()
 	{
@@ -114,14 +115,14 @@ public class Handle_main extends DepthFirstVisitor
     */
    public void visit(CJumpStmt n) throws Exception {
 	  from = "CJUMP";
-	   
+	  String copy;
+	  
 	  instruction = "\""+method_name+"\""+", "+AssignInstr()+", "+"\"";
       instruction += "CJUMP ";
       n.f1.accept(this);
-      String copy = new String(variables);
-      variablesArray.add(copy);
       instruction += " ";
       
+      from = "CJUMP";
       n.f2.accept(this);
       keepInstr = CurrentInstr();
       cjump_jump.put(keepInstr, keepLabel);
@@ -146,14 +147,34 @@ public class Handle_main extends DepthFirstVisitor
    public void visit(JumpStmt n) throws Exception {
 	  from = "JUMP";
 	  String copy;
+	  boolean not_eq = true;
 	  
 	  instruction = "\""+method_name+"\""+", "+AssignInstr()+", "+"\"";
       instruction += "JUMP ";
       n.f1.accept(this);
-      keepInstr = CurrentInstr();
-      cjump_jump.put(keepInstr, keepLabel);
-      instruction += "\"";
       
+      Set<Integer> keys = jump_labels_up.keySet();
+	  for(Iterator<Integer> it = keys.iterator(); it.hasNext();)
+	  {		
+		  int k = it.next();
+		  String type1 = jump_labels_up.get(k);
+		  if(keepLabel.equals(type1))
+		  {
+			  next = "\""+method_name+"\", "+CurrentInstr()+", "+k;
+		      copy = new String(next);
+		      nextArray.add(copy);
+		      not_eq = false;
+		      break;
+		  }
+	  }
+      
+	  if(not_eq)
+	  {
+	      keepInstr = CurrentInstr();
+	      cjump_jump.put(keepInstr, keepLabel);
+	  }
+      
+	  instruction += "\"";
       copy = new String(instruction);
       instructionArray.add(copy);
       
@@ -167,11 +188,27 @@ public class Handle_main extends DepthFirstVisitor
     */
    public void visit(HStoreStmt n) throws Exception {
 	   from = "HSTORE";
-	   
-      n.f0.accept(this);
-      n.f1.accept(this);
-      n.f2.accept(this);
-      n.f3.accept(this);
+	   String copy;
+	   boolean not_eq = true;
+		  
+	  instruction = "\""+method_name+"\""+", "+AssignInstr()+", "+"\"";
+      instruction += "HSTORE ";
+      n.f1.accept(this);     
+      instruction += " ";
+      instruction += n.f2.f0.toString()+" ";
+      varUse = "\""+method_name+"\""+", "+CurrentInstr()+", "+"\""+temp+"\"";
+      copy = new String(varUse);
+      varUseArray.add(copy);
+      
+      from = "HSTORE";
+      n.f3.accept(this); 
+      varUse = "\""+method_name+"\""+", "+CurrentInstr()+", "+"\""+temp+"\"";
+      copy = new String(varUse);
+      varUseArray.add(copy);
+      
+      instruction += "\"";
+      copy = new String(instruction);
+      instructionArray.add(copy);
    }
 
    /**
@@ -219,9 +256,13 @@ public class Handle_main extends DepthFirstVisitor
     * f1 -> IntegerLiteral()
     */
    public void visit(Temp n) throws Exception {
+	   from = "TEMP"; 
+	  
 	  instruction += "TEMP "+n.f1.f0.toString();
 	  variables = "\""+method_name+"\""+", "+"\"TEMP "+n.f1.f0.toString()+"\"";
 	  temp = "TEMP "+n.f1.f0.toString();
+	  String copy = new String(variables);
+      variablesArray.add(copy);
    }
    
    /**
@@ -229,16 +270,17 @@ public class Handle_main extends DepthFirstVisitor
     */
    public void visit(Label n) throws Exception {
 	  String copy;
-	  System.out.println(n.f0.toString() +" "+ from);
+	  boolean not_eq = true;
+	  //System.out.println(n.f0.toString() +" "+ from);
 	  if(from.equals("CJUMP") || from.equals("JUMP"))
 	  {
-		    System.out.println("in jump");
+		   // System.out.println("in jump");
 		  	instruction += n.f0.toString();
 		  	keepLabel = n.f0.toString();
 	  }
 	  else
 	  {
-		    System.out.println("out jump");
+		    //System.out.println("out jump");
 		  	Set<Integer> keys = cjump_jump.keySet();
 			for(Iterator<Integer> it = keys.iterator(); it.hasNext();)
 			{
@@ -247,13 +289,21 @@ public class Handle_main extends DepthFirstVisitor
 				String type1 = cjump_jump.get(k);
 				if(n.f0.toString().equals(type1))
 				{
-					System.out.println(n.f0.toString() + " " + type1 + " " + k);
+					//System.out.println(n.f0.toString() + " " + type1 + " " + k);
 					next = "\""+method_name+"\", "+k+", "+(CurrentInstr()+1);
 				    copy = new String(next);
 				    nextArray.add(copy);
+				    not_eq = false;
+				    break;
 				}
 			}
+			if(not_eq)
+			{
+				jump_labels_up.put((CurrentInstr()+1), n.f0.toString());
+			}
 	  }
+	  
+	  from = "LABEL";
    }
    
    
