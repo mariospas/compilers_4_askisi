@@ -28,12 +28,26 @@ public class Main {
 			    Handle_main eval = new Handle_main();
 			    root.accept(eval);
 			    
+			    boolean success = (new File("facts")).mkdirs();
+				if (!success) {
+					System.out.print("Directory allready exist\n");
+				}
+			    
+			    
 			    Print_array_list obj = new Print_array_list();
 			    obj.print_array_list(eval.instructionArray, "instruction");
 			    obj.print_array_list(eval.varUseArray, "varUse");
-			    obj.print_array_list(eval.variablesArray, "var");
-			    obj.print_array_list(eval.nextArray, "next");
 			    
+			    obj.print_array_list(eval.nextArray, "next");
+			    obj.print_array_list(eval.varDefArray, "varDef");
+			    obj.print_array_list(eval.varMoveArray, "varMove");
+			    obj.print_array_list(eval.constMoveArray, "constMove");
+			    
+			    Set<String> hs = new LinkedHashSet<>();
+			    hs.addAll(eval.variablesArray);
+			    eval.variablesArray.clear();
+			    eval.variablesArray.addAll(hs);
+			    obj.print_array_list(eval.variablesArray, "var");
 			    
 			    System.out.println("^^^File : "+args[i]+"   Success ^^^^^^^^^^");
 	        }
