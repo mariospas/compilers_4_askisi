@@ -1,0 +1,4 @@
+constMove("MAIN", 9, "TEMP 28", 10).
+constMove("Fac_ComputeFac", 1, "TEMP 60", 1).
+constMove("Fac_ComputeFac", 4, "TEMP 62", 1).
+constMove("Fac_ComputeFac", 10, "TEMP 66", 1).

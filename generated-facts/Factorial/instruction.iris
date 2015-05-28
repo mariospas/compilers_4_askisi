@@ -1,0 +1,26 @@
+instruction("MAIN", 1, "MOVE TEMP 21  HALLOCATE 4 ").
+instruction("MAIN", 2, "MOVE TEMP 22  HALLOCATE 4 ").
+instruction("MAIN", 3, "MOVE TEMP 23  ").
+instruction("MAIN", 4, "HSTORE TEMP 21  0 TEMP 23 ").
+instruction("MAIN", 5, "HSTORE TEMP 22  0 TEMP 21 ").
+instruction("MAIN", 6, "MOVE TEMP 25  TEMP 22 ").
+instruction("MAIN", 7, "HLOAD TEMP 26  TEMP 25  TEMP").
+instruction("MAIN", 8, "HLOAD TEMP 27  TEMP 26  TEMP").
+instruction("MAIN", 9, "MOVE TEMP 28  10 ").
+instruction("MAIN", 10, "MOVE TEMP 29  CALL TEMP 27  ( TEMP 25 TEMP 28  )").
+instruction("MAIN", 11, "PRINT TEMP 29 ").
+instruction("Fac_ComputeFac", 1, "MOVE TEMP 60  1 ").
+instruction("Fac_ComputeFac", 2, "MOVE TEMP 61  LT TEMP 1 TEMP 60 ").
+instruction("Fac_ComputeFac", 3, "CJUMP TEMP 61  L1").
+instruction("Fac_ComputeFac", 4, "MOVE TEMP 62  1 ").
+instruction("Fac_ComputeFac", 5, "MOVE TEMP 59  TEMP 62 ").
+instruction("Fac_ComputeFac", 6, "JUMP L2").
+instruction("Fac_ComputeFac", 7, "MOVE TEMP 63  TEMP 0 ").
+instruction("Fac_ComputeFac", 8, "HLOAD TEMP 64  TEMP 63  TEMP").
+instruction("Fac_ComputeFac", 9, "HLOAD TEMP 65  TEMP 64  TEMP").
+instruction("Fac_ComputeFac", 10, "MOVE TEMP 66  1 ").
+instruction("Fac_ComputeFac", 11, "MOVE TEMP 67  MINUS TEMP 1 TEMP 66 ").
+instruction("Fac_ComputeFac", 12, "MOVE TEMP 68  CALL TEMP 65  ( TEMP 63 TEMP 67  )").
+instruction("Fac_ComputeFac", 13, "MOVE TEMP 69  TIMES TEMP 1 TEMP 68 ").
+instruction("Fac_ComputeFac", 14, "MOVE TEMP 59  TEMP 69 ").
+instruction("Fac_ComputeFac", 15, "RETURN TEMP 59 ").

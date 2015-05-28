@@ -157,3 +157,15 @@ run-test:
 	$(JVM) -cp $(CLASSPATH) iris.Main $(current_dir) /generated-facts/test /analysis-logic /queries
 run-test:
 	$(JVM) -cp $(CLASSPATH) iris.Main $(current_dir) /generated-facts/test /analysis-logic /queries
+run-test:
+	$(JVM) -cp $(CLASSPATH) iris.Main $(current_dir) /generated-facts/test /analysis-logic /queries
+run-test:
+	$(JVM) -cp $(CLASSPATH) iris.Main $(current_dir) /generated-facts/test /analysis-logic /queries
+run-test:
+	$(JVM) -cp $(CLASSPATH) iris.Main $(current_dir) /generated-facts/test /analysis-logic /queries
+run-test:
+	$(JVM) -cp $(CLASSPATH) iris.Main $(current_dir) /generated-facts/test /analysis-logic /queries
+run-test:
+	$(JVM) -cp $(CLASSPATH) iris.Main $(current_dir) /generated-facts/test /analysis-logic /queries
+run-test101:
+	$(JVM) -cp $(CLASSPATH) iris.Main $(current_dir) /generated-facts/test101 /analysis-logic /queries

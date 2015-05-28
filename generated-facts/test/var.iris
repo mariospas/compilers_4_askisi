@@ -1,0 +1,11 @@
+var("MAIN", "TEMP 21").
+var("MAIN", "TEMP 22").
+var("MAIN", "TEMP 23").
+var("MAIN", "TEMP 24").
+var("MAIN", "TEMP 25").
+var("MAIN", "TEMP 26").
+var("MAIN", "TEMP 27").
+var("MAIN", "TEMP 28").
+var("MAIN", "TEMP 29").
+var("MAIN", "TEMP 30").
+var("MAIN", "TEMP 40").

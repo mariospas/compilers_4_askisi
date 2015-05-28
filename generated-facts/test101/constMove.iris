@@ -1,0 +1,12 @@
+constMove("MAIN", 6, "TEMP 30", 0).
+constMove("MAIN", 8, "TEMP 31", 0).
+constMove("MAIN", 10, "TEMP 32", 0).
+constMove("MAIN", 18, "TEMP 36", 0).
+constMove("MAIN", 20, "TEMP 37", 0).
+constMove("MAIN", 22, "TEMP 38", 0).
+constMove("A23_init", 1, "TEMP 59", 10).
+constMove("A23_init", 4, "TEMP 60", 1).
+constMove("A23_init", 7, "TEMP 62", 2).
+constMove("A23_init", 10, "TEMP 64", 30).
+constMove("A23_init", 16, "TEMP 67", 0).
+constMove("A23_init", 18, "TEMP 68", 1).

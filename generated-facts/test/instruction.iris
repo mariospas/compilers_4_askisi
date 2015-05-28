@@ -1,0 +1,16 @@
+instruction("MAIN", 1, "MOVE TEMP 21  HALLOCATE 4 ").
+instruction("MAIN", 2, "MOVE TEMP 22  HALLOCATE 4 ").
+instruction("MAIN", 3, "MOVE TEMP 23  ").
+instruction("MAIN", 4, "HSTORE TEMP 21  0 TEMP 23 ").
+instruction("MAIN", 5, "HSTORE TEMP 22  0 TEMP 21 ").
+instruction("MAIN", 6, "MOVE TEMP 24  TEMP 22 ").
+instruction("MAIN", 7, "HLOAD TEMP 25  TEMP 24  TEMP").
+instruction("MAIN", 8, "HLOAD TEMP 26  TEMP 25  TEMP").
+instruction("MAIN", 9, "MOVE TEMP 27  10 ").
+instruction("MAIN", 10, "MOVE TEMP 28  CALL TEMP 26  ( TEMP 24 TEMP 27  )").
+instruction("MAIN", 11, "PRINT TEMP 28 ").
+instruction("MAIN", 12, "MOVE TEMP 29  0 ").
+instruction("MAIN", 13, "MOVE TEMP 30  TEMP 29 ").
+instruction("MAIN", 14, "MOVE TEMP 30  TEMP 21 ").
+instruction("MAIN", 15, "MOVE TEMP 29  TEMP 30 ").
+instruction("MAIN", 16, "MOVE TEMP 40  TEMP 29 ").

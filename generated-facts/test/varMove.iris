@@ -1,0 +1,5 @@
+varMove("MAIN", 6, "TEMP 24", "TEMP 22").
+varMove("MAIN", 13, "TEMP 30", "TEMP 29").
+varMove("MAIN", 14, "TEMP 30", "TEMP 21").
+varMove("MAIN", 15, "TEMP 29", "TEMP 30").
+varMove("MAIN", 16, "TEMP 40", "TEMP 29").

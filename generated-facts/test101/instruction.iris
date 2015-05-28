@@ -1,0 +1,50 @@
+instruction("MAIN", 1, "MOVE TEMP 27  HALLOCATE 4 ").
+instruction("MAIN", 2, "MOVE TEMP 28  HALLOCATE 16 ").
+instruction("MAIN", 3, "MOVE TEMP 29  ").
+instruction("MAIN", 4, "HSTORE TEMP 27  0 TEMP 29 ").
+instruction("MAIN", 5, "HSTORE TEMP 28  0 TEMP 27 ").
+instruction("MAIN", 6, "MOVE TEMP 30  0 ").
+instruction("MAIN", 7, "HSTORE TEMP 28  4 TEMP 30 ").
+instruction("MAIN", 8, "MOVE TEMP 31  0 ").
+instruction("MAIN", 9, "HSTORE TEMP 28  8 TEMP 31 ").
+instruction("MAIN", 10, "MOVE TEMP 32  0 ").
+instruction("MAIN", 11, "HSTORE TEMP 28  12 TEMP 32 ").
+instruction("MAIN", 12, "MOVE TEMP 16  TEMP 28 ").
+instruction("MAIN", 13, "MOVE TEMP 33  HALLOCATE 4 ").
+instruction("MAIN", 14, "MOVE TEMP 34  HALLOCATE 16 ").
+instruction("MAIN", 15, "MOVE TEMP 35  ").
+instruction("MAIN", 16, "HSTORE TEMP 33  0 TEMP 35 ").
+instruction("MAIN", 17, "HSTORE TEMP 34  0 TEMP 33 ").
+instruction("MAIN", 18, "MOVE TEMP 36  0 ").
+instruction("MAIN", 19, "HSTORE TEMP 34  4 TEMP 36 ").
+instruction("MAIN", 20, "MOVE TEMP 37  0 ").
+instruction("MAIN", 21, "HSTORE TEMP 34  8 TEMP 37 ").
+instruction("MAIN", 22, "MOVE TEMP 38  0 ").
+instruction("MAIN", 23, "HSTORE TEMP 34  12 TEMP 38 ").
+instruction("MAIN", 24, "MOVE TEMP 39  TEMP 34 ").
+instruction("MAIN", 25, "HLOAD TEMP 40  TEMP 39  TEMP").
+instruction("MAIN", 26, "HLOAD TEMP 41  TEMP 40  TEMP").
+instruction("MAIN", 27, "MOVE TEMP 42  CALL TEMP 41  ( TEMP 39 TEMP 16  )").
+instruction("MAIN", 28, "PRINT TEMP 42 ").
+instruction("A23_init", 1, "MOVE TEMP 59  10 ").
+instruction("A23_init", 2, "MOVE TEMP 48  TEMP 59 ").
+instruction("A23_init", 3, "CJUMP TEMP 44  L3").
+instruction("A23_init", 4, "MOVE TEMP 60  1 ").
+instruction("A23_init", 5, "MOVE TEMP 61  PLUS TEMP 47 TEMP 60 ").
+instruction("A23_init", 6, "MOVE TEMP 46  TEMP 61 ").
+instruction("A23_init", 7, "MOVE TEMP 62  2 ").
+instruction("A23_init", 8, "MOVE TEMP 63  TIMES TEMP 62 TEMP 48 ").
+instruction("A23_init", 9, "MOVE TEMP 47  TEMP 63 ").
+instruction("A23_init", 10, "MOVE TEMP 64  30 ").
+instruction("A23_init", 11, "MOVE TEMP 65  LT TEMP 47 TEMP 64 ").
+instruction("A23_init", 12, "CJUMP TEMP 65  L4").
+instruction("A23_init", 13, "MOVE TEMP 66  PLUS TEMP 47 TEMP 48 ").
+instruction("A23_init", 14, "MOVE TEMP 46  TEMP 66 ").
+instruction("A23_init", 15, "JUMP L5").
+instruction("A23_init", 16, "MOVE TEMP 67  0 ").
+instruction("A23_init", 17, "MOVE TEMP 44  TEMP 67 ").
+instruction("A23_init", 18, "MOVE TEMP 68  1 ").
+instruction("A23_init", 19, "MOVE TEMP 48  TEMP 68 ").
+instruction("A23_init", 20, "JUMP L2").
+instruction("A23_init", 21, "MOVE TEMP 48  TEMP 46 ").
+instruction("A23_init", 22, "RETURN TEMP 46 ").
