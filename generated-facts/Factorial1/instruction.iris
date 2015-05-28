@@ -9,6 +9,7 @@ instruction("MAIN", 8, "HLOAD TEMP 26  TEMP 25  TEMP").
 instruction("MAIN", 9, "MOVE TEMP 27  10 ").
 instruction("MAIN", 10, "MOVE TEMP 28  CALL TEMP 26  ( TEMP 24 TEMP 27  )").
 instruction("MAIN", 11, "PRINT TEMP 28 ").
+instruction("MAIN", 12, "PRINT TEMP 27 ").
 instruction("Fac_ComputeFac", 1, "MOVE TEMP 32  1 ").
 instruction("Fac_ComputeFac", 2, "MOVE TEMP 33  LT TEMP 1 TEMP 32 ").
 instruction("Fac_ComputeFac", 3, "CJUMP TEMP 33  L0").
@@ -20,6 +21,6 @@ instruction("Fac_ComputeFac", 8, "HLOAD TEMP 37  TEMP 36  TEMP").
 instruction("Fac_ComputeFac", 9, "MOVE TEMP 38  1 ").
 instruction("Fac_ComputeFac", 10, "MOVE TEMP 39  MINUS TEMP 1 TEMP 38 ").
 instruction("Fac_ComputeFac", 11, "MOVE TEMP 40  CALL TEMP 37  ( TEMP 35 TEMP 39  )").
-instruction("Fac_ComputeFac", 12, "MOVE TEMP 41  TIMES TEMP 1 TEMP 40 ").
+instruction("Fac_ComputeFac", 12, "MOVE TEMP 41  1 ").
 instruction("Fac_ComputeFac", 13, "MOVE TEMP 31  TEMP 41 ").
 instruction("Fac_ComputeFac", 14, "RETURN TEMP 31 ").

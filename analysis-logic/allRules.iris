@@ -1,17 +1,35 @@
+//////////----liveness----//////////
+
 in(?m,?i,?v) :- out(?m,?i,?v),
 				!varDef(?m,?i,?v).                   
 in(?m,?i,?v) :- varUse(?m,?i,?v).
 out(?m,?i,?v) :- in(?m,?j,?v),next(?m,?i,?j).
 
+/////////----dead_code----//////////////
 
 dead(?m,?i) :- varDef(?m,?i,?v),
 			   !out(?m,?i,?v).
-			   
-
-const_propagation(?m,?i,?v) :- constMove(?m,?i,?v,?c).			   			   
-const_propagation(?m,?i,?v) :- !varDef(?m,?i,?v),
-							   next(?m,?j,?i),
-							   const_propagation(?m,?j,?v),
-							   in(?m,?i,?v).
- 
+	
+///////////---const_propagation---//////////	   
+			   			   
+const_propagation(?m,?i,?v,?c) :- next(?m,?j,?i),
+							      const_propagation2(?m,?j,?v,?c),
+							      next(?m,?k,?i),
+							      !const_propagation2(?m,?k,?v2,?l),
+							      ?k != ?j.
+							      
+const_propagation2(?m,?i,?v,?c) :- constMove(?m,?i,?v,?c).
+const_propagation2(?m,?i,?v,?c) :- next(?m,?j,?i),
+							      const_propagation2(?m,?j,?v,?c),
+							      in(?m,?i,?v).
+							      		
+const_propag(?m,?i,?v,?c) :- const_propagation2(?m,?i,?v,?c),
+							 !const_propagation(?m,?i,?v2,?c2).
+							      
+//////////----copy_propagation----////////	 
 							
+copy_propagation(?m,?i,?v) :- varMove(?m,?i,?v2,?v),
+							  ?v2 != ?v.
+copy_propagation(?m,?i,?v) :- next(?m,?j,?i),
+							  copy_propagation(?m,?j,?v),
+							  in(?m,?i,?v).
