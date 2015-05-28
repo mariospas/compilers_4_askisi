@@ -1,0 +1,6 @@
+varMove("MAIN", 12, "TEMP 16", "TEMP 28").
+varMove("MAIN", 24, "TEMP 39", "TEMP 34").
+varMove("A23_init", 2, "TEMP 45", "TEMP 56").
+varMove("A23_init", 4, "TEMP 44", "TEMP 57").
+varMove("A23_init", 8, "TEMP 45", "TEMP 59").
+varMove("A23_init", 10, "TEMP 44", "TEMP 60").

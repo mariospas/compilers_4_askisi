@@ -40,6 +40,7 @@ public class Main {
          *  have one file for each relation's facts as our examples show.
          */
         final File factsDirectory = new File(projectDirectory + args[1]);
+System.out.println(args[1]+"99999999");
         if (factsDirectory.isDirectory()) {
             for (final File fileEntry : factsDirectory.listFiles()) {
 
@@ -60,7 +61,7 @@ public class Main {
             System.exit(-1);
         }
 
-        File rulesFile = new File(projectDirectory + args[2] +"/allRules.iris");
+        File rulesFile = new File(projectDirectory + args[2] +"/rules.iris");
         Reader rulesReader = new FileReader(rulesFile);
 
         File queriesFile = new File(projectDirectory + args[3] + "/queries.iris");

@@ -11,14 +11,6 @@ public class Print_array_list
 	{
 		// Get size and display.
 		int count = array.size();
-		System.out.println("Count: " + count);
-	
-		// Loop through elements.
-		for (int i = 0; i < count; i++) {
-		    String value = array.get(i);
-		    System.out.println(name+"(" + value +").\n");
-		}
-		
 		
 		File output = new File(path+"/"+name+".iris");
 		if( !output.exists() )
