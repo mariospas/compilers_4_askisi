@@ -1,0 +1,3 @@
+var("MAIN", "TEMP 1").
+var("MAIN", "TEMP 2").
+var("MAIN", "TEMP 3").

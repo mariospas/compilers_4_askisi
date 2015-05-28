@@ -1,0 +1,4 @@
+constMove("MAIN", 1, "TEMP 1", 0).
+constMove("MAIN", 2, "TEMP 2", 100).
+constMove("MAIN", 5, "TEMP 1", 5).
+constMove("MAIN", 7, "TEMP 1", 6).

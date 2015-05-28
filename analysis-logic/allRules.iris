@@ -5,12 +5,16 @@ in(?m,?i,?v) :- out(?m,?i,?v),
 in(?m,?i,?v) :- varUse(?m,?i,?v).
 out(?m,?i,?v) :- in(?m,?j,?v),next(?m,?i,?j).
 
+
 /////////----dead_code----//////////////
+
 
 dead(?m,?i) :- varDef(?m,?i,?v),
 			   !out(?m,?i,?v).
 	
-///////////---const_propagation---//////////	   
+	
+///////////---const_propagation---//////////	 
+  
 			   			   
 const_propagation(?m,?i,?v,?c) :- next(?m,?j,?i),
 							      const_propagation2(?m,?j,?v,?c),
@@ -20,16 +24,65 @@ const_propagation(?m,?i,?v,?c) :- next(?m,?j,?i),
 							      
 const_propagation2(?m,?i,?v,?c) :- constMove(?m,?i,?v,?c).
 const_propagation2(?m,?i,?v,?c) :- next(?m,?j,?i),
-							      const_propagation2(?m,?j,?v,?c),
-							      in(?m,?i,?v).
+							       const_propagation2(?m,?j,?v,?c),
+							       in(?m,?i,?v).
+//const_propagation2(?m,?i,?v1,?k):- varMove(?m,?i,?v1,?v),
+//								   const_propagation2(?m,?i,?v,?k),
+//								   varUse(?m,?i,?v).
 							      		
 const_propag(?m,?i,?v,?c) :- const_propagation2(?m,?i,?v,?c),
 							 !const_propagation(?m,?i,?v2,?c2).
 							      
-//////////----copy_propagation----////////	 
-							
-copy_propagation(?m,?i,?v) :- varMove(?m,?i,?v2,?v),
-							  ?v2 != ?v.
+							      
+//////////----copy_propagation----////////	
+
+
 copy_propagation(?m,?i,?v) :- next(?m,?j,?i),
-							  copy_propagation(?m,?j,?v),
+							  copy_propagation2(?m,?j,?v),
+							  next(?m,?k,?i),
+							  !copy_propagation2(?m,?k,?v2),
+							  ?k != ?j. 
+							
+copy_propagation2(?m,?i,?v) :- varMove(?m,?i,?v2,?v),
+							  ?v2 != ?v.
+copy_propagation2(?m,?i,?v) :- next(?m,?j,?i),
+							  copy_propagation2(?m,?j,?v),
 							  in(?m,?i,?v).
+							  
+copy_propag(?m,?i,?v) :- copy_propagation2(?m,?i,?v),
+						 !copy_propagation(?m,?i,?v2).
+
+
+
+//////////------basic blocks------/////////	
+
+
+reach(?m,?i,?e) :- next(?m,?i,?e),
+				   ?i + 1 = ?e.
+reach(?m,?i,?e) :- next(?m,?k,?e),
+				   ?k + 1 = ?e,
+				   reach(?m,?i,?e).
+					 
+bbstart(?m,?i) :- next(?m,?i,?j),?i=1.
+bbstart(?m,?j):- cJumpInstruction(?m,?i,?j,?k).
+bbstart(?m,?k):- cJumpInstruction(?m,?i,?j,?k).
+bbstart(?m,?j):- jumpInstruction(?m, ?i, ?j).
+
+
+
+cJumpInstruction(?m, ?i, ?j, ?k) :- next(?m, ?i, ?j), 
+                                    next(?m, ?i, ?k), 
+                                    ?i+1 = ?k,
+                                    ?j != ?k.
+
+
+jumpInstruction(?m, ?i, ?j) :-     next(?m, ?i, ?j),
+                                   ?i+1 = ?k,
+                                   ?j != ?k,
+                                   !next(?m, ?i, ?k).
+
+non_seri(?m,?i,?j) :- next(?m,?i,?j),!reach(?m,?i,?e).
+
+allend(?m,?j) :- next(?m,?i,?j),!next(?m,?j,?k).
+
+					      

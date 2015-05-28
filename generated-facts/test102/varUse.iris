@@ -1,0 +1,4 @@
+varUse("MAIN", 3, "TEMP 1").
+varUse("MAIN", 3, "TEMP 2").
+varUse("MAIN", 4, "TEMP 3").
+varUse("MAIN", 8, "TEMP 1").

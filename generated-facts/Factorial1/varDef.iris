@@ -17,3 +17,4 @@ varDef("Fac_ComputeFac", 10, "TEMP 39").
 varDef("Fac_ComputeFac", 11, "TEMP 40").
 varDef("Fac_ComputeFac", 12, "TEMP 41").
 varDef("Fac_ComputeFac", 13, "TEMP 31").
+varDef("Fac_ComputeFac", 14, "TEMP 50").

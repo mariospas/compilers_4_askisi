@@ -1,0 +1,8 @@
+instruction("MAIN", 1, "MOVE TEMP 1  0 ").
+instruction("MAIN", 2, "MOVE TEMP 2  100 ").
+instruction("MAIN", 3, "MOVE TEMP 3  LT TEMP 1 TEMP 2 ").
+instruction("MAIN", 4, "CJUMP TEMP 3  L0").
+instruction("MAIN", 5, "MOVE TEMP 1  5 ").
+instruction("MAIN", 6, "JUMP L1").
+instruction("MAIN", 7, "MOVE TEMP 1  6 ").
+instruction("MAIN", 8, "PRINT TEMP 1 ").
